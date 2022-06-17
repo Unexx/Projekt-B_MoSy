@@ -1,8 +1,9 @@
 import { useNavigation } from '@react-navigation/core'
 import React, { useEffect, useState } from 'react'
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import { auth } from '../firebase/firebase-config'
+import { auth, db } from '../firebase/firebase-config'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
+import { collection, getDoc, setDoc, addDoc, doc } from "firebase/firestore"; 
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('')
@@ -22,10 +23,17 @@ const LoginScreen = () => {
   }, [])
 
   const handleSignUp = () => {
-    // const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
       const user = userCredential.user;
+      const addUser = async () => {
+        await setDoc(doc(db, "users", user.email), {
+          uid: user.uid,
+          user_email: user.email,
+          markers: null
+        });
+      }
+      addUser();
       console.log('Registered with:', user.email);
     })
     .catch(error => alert(error.message))
@@ -40,6 +48,27 @@ const LoginScreen = () => {
     })
     .catch(error => alert(error.message))
   }
+
+  // const handleGoogleSingIn = () => {
+  //   signInWithPopup(auth, provider)
+  //     .then((result) => {
+  //       // This gives you a Google Access Token. You can use it to access the Google API.
+  //       const credential = GoogleAuthProvider.credentialFromResult(result);
+  //       const token = credential.accessToken;
+  //       // The signed-in user info.
+  //       const user = result.user;
+  //       // ...
+  //     }).catch((error) => {
+  //       // Handle Errors here.
+  //       const errorCode = error.code;
+  //       const errorMessage = error.message;
+  //       // The email of the user's account used.
+  //       const email = error.customData.email;
+  //       // The AuthCredential type that was used.
+  //       const credential = GoogleAuthProvider.credentialFromError(error);
+  //       // ...
+  //     });
+  // }
 
   return (
     <KeyboardAvoidingView
@@ -69,12 +98,21 @@ const LoginScreen = () => {
         >
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           onPress={handleSignUp}
           style={[styles.button, styles.buttonOutline]}
         >
           <Text style={styles.buttonOutlineText}>Register</Text>
         </TouchableOpacity>
+
+        {/* <TouchableOpacity
+          onPress={handleGoogleSingIn}
+          style={[styles.button, styles.buttonOutline]}
+        >
+          <Text style={styles.buttonOutlineText}>Sign in with Google</Text>
+        </TouchableOpacity> */}
+
       </View>
     </KeyboardAvoidingView>
   )

@@ -1,8 +1,11 @@
 import { useNavigation } from '@react-navigation/core'
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { auth } from '../firebase/firebase-config'
+import { auth, db } from '../firebase/firebase-config'
 import { signOut } from 'firebase/auth'
+import { collection, getDoc, setDoc, addDoc, doc } from "firebase/firestore"; 
+
+
 
 const HomeScreen = () => {
   const navigation = useNavigation()
@@ -16,6 +19,15 @@ const HomeScreen = () => {
     .catch(error => alert(error.message))
   }
 
+  const addDataToCollection = async () => {
+    // Add a new document in collection "cities"
+    await setDoc(doc(db, "users", ), {
+      name: "San Francisco ",
+      state: "CA",
+      country: "USA"
+    });
+  }
+
   return (
     <View style={styles.container}>
       <Text>Email: {auth.currentUser?.email}</Text>
@@ -24,6 +36,13 @@ const HomeScreen = () => {
         style={styles.button}
       >
         <Text style={styles.buttonText}>Sign out</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={addDataToCollection}
+        style={styles.button}
+      >
+        <Text style={styles.buttonText}>Add data to collection</Text>
       </TouchableOpacity>
     </View>
   )
