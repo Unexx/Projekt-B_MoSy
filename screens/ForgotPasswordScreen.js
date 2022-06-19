@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/core'
 import React, { useState } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View, TextInput, KeyboardAvoidingView } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-native'
 import { auth } from '../firebase/firebase-config'
 import { sendPasswordResetEmail } from 'firebase/auth'
 
@@ -26,9 +26,8 @@ const ForgotPasswordScreen = () => {
 
   return (
 
-    <KeyboardAvoidingView
+    <View
       style={styles.container}
-      behavior="padding"
     >
       <View style={styles.inputContainer}>
 
@@ -57,7 +56,7 @@ const ForgotPasswordScreen = () => {
         </TouchableOpacity>
 
       </View>
-    </KeyboardAvoidingView>
+    </View>
   )
 }
 

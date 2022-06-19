@@ -1,17 +1,21 @@
 import { useNavigation } from '@react-navigation/core'
 import React, { useState } from 'react'
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { auth } from '../firebase/firebase-config'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification } from "firebase/auth"
 
 auth.languageCode = auth.useDeviceLanguage();
 
 const LoginScreen = () => {
+
+  // useState hooks for text input
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  // Navigation to switch between screens
   const navigation = useNavigation()
 
+  // Handler for sign-up; sends data to Firebase and gets E-Mail back to verify
   const handleSignUp = () => {
     createUserWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
@@ -24,6 +28,7 @@ const LoginScreen = () => {
     .catch(error => alert(error.message))
   }
 
+  // Handler for sign-in; signs into app and checks if user is email-verified
   const handleLogin = () => {
     signInWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
@@ -38,14 +43,14 @@ const LoginScreen = () => {
     .catch(error => alert(error.message))
   }
 
+  // Handler for password-reset; changes screen
   const handleForgotPassword = () => {
     navigation.replace("ForgotPW")
   }
 
   return (
-    <KeyboardAvoidingView
+    <View
       style={styles.container}
-      behavior="padding"
     >
       <View style={styles.inputContainer}>
         <TextInput
@@ -86,7 +91,7 @@ const LoginScreen = () => {
         </TouchableOpacity>
 
       </View>
-    </KeyboardAvoidingView>
+    </View>
   )
 }
 
