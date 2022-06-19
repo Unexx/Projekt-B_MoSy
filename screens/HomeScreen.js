@@ -5,7 +5,7 @@ import { auth, db } from '../firebase/firebase-config'
 import { signOut } from 'firebase/auth'
 import { collection, getDoc, setDoc, addDoc, doc } from "firebase/firestore"; 
 
-
+const user = auth.currentUser;
 
 const HomeScreen = () => {
   const navigation = useNavigation()
@@ -20,11 +20,13 @@ const HomeScreen = () => {
   }
 
   const addDataToCollection = async () => {
-    // Add a new document in collection "cities"
-    await setDoc(doc(db, "users", ), {
-      name: "San Francisco ",
-      state: "CA",
-      country: "USA"
+    await setDoc(doc(db, "users", user.uid.toString()), {
+      uid: user.uid,
+      user_email: user.email,
+      markers: {
+        latitude: 4,
+        longitude: 4
+      }
     });
   }
 

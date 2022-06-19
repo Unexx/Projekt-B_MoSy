@@ -1,9 +1,10 @@
 import { useNavigation } from '@react-navigation/core'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import { auth, db } from '../firebase/firebase-config'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
-import { collection, getDoc, setDoc, addDoc, doc } from "firebase/firestore"; 
+import { auth } from '../firebase/firebase-config'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification } from "firebase/auth"
+
+auth.languageCode = auth.useDeviceLanguage();
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('')
@@ -11,64 +12,35 @@ const LoginScreen = () => {
 
   const navigation = useNavigation()
 
-  useEffect(() => {
-    // const auth = getAuth();
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      if (user) {
-        navigation.replace("Home")
-      }
-    })
-
-    return unsubscribe
-  }, [])
-
   const handleSignUp = () => {
     createUserWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
       const user = userCredential.user;
-      const addUser = async () => {
-        await setDoc(doc(db, "users", user.email), {
-          uid: user.uid,
-          user_email: user.email,
-          markers: null
-        });
-      }
-      addUser();
-      console.log('Registered with:', user.email);
-    })
+    sendEmailVerification(auth.currentUser)
+      .then(() => {
+        alert("E-Mail verification sent! Please confirm your identity to sign-in.")
+      });
+      })
     .catch(error => alert(error.message))
   }
 
   const handleLogin = () => {
-    // const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
       const user = userCredential.user;
-      console.log('Logged in with:', user.email);
+      if (user.emailVerified) {
+        navigation.replace("Home")
+      }
+      else {
+        alert("User not verified, yet! Please verify your E-Mail address.")
+      }
     })
     .catch(error => alert(error.message))
   }
 
-  // const handleGoogleSingIn = () => {
-  //   signInWithPopup(auth, provider)
-  //     .then((result) => {
-  //       // This gives you a Google Access Token. You can use it to access the Google API.
-  //       const credential = GoogleAuthProvider.credentialFromResult(result);
-  //       const token = credential.accessToken;
-  //       // The signed-in user info.
-  //       const user = result.user;
-  //       // ...
-  //     }).catch((error) => {
-  //       // Handle Errors here.
-  //       const errorCode = error.code;
-  //       const errorMessage = error.message;
-  //       // The email of the user's account used.
-  //       const email = error.customData.email;
-  //       // The AuthCredential type that was used.
-  //       const credential = GoogleAuthProvider.credentialFromError(error);
-  //       // ...
-  //     });
-  // }
+  const handleForgotPassword = () => {
+    navigation.replace("ForgotPW")
+  }
 
   return (
     <KeyboardAvoidingView
@@ -106,12 +78,12 @@ const LoginScreen = () => {
           <Text style={styles.buttonOutlineText}>Register</Text>
         </TouchableOpacity>
 
-        {/* <TouchableOpacity
-          onPress={handleGoogleSingIn}
-          style={[styles.button, styles.buttonOutline]}
+        <TouchableOpacity
+          onPress={handleForgotPassword}
+          style={styles.buttonForgotPassword}
         >
-          <Text style={styles.buttonOutlineText}>Sign in with Google</Text>
-        </TouchableOpacity> */}
+          <Text style={styles.buttonOutlineText}>Forgot password?</Text>
+        </TouchableOpacity>
 
       </View>
     </KeyboardAvoidingView>
@@ -165,4 +137,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 16,
   },
+  buttonForgotPassword: {
+    marginTop: 5
+  }
 })
