@@ -4,7 +4,6 @@ import { StyleSheet, Text, View, Dimensions } from 'react-native';
 // import { enableLatestRenderer } from 'react-native-maps';
 import MapView from 'react-native-maps';
 import { Marker } from 'react-native-maps';
-
 // enableLatestRenderer();
 
 const MapScreen = () => {

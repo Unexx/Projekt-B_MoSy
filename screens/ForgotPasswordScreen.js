@@ -25,7 +25,6 @@ const ForgotPasswordScreen = () => {
   }
 
   return (
-
     <View
       style={styles.container}
     >

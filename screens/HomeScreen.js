@@ -6,7 +6,6 @@ import { signOut } from 'firebase/auth'
 import { collection, getDoc, setDoc, addDoc, doc } from "firebase/firestore"; 
 
 const user = auth.currentUser;
-
 const HomeScreen = () => {
   const navigation = useNavigation()
 

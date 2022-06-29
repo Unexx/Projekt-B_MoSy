@@ -7,7 +7,6 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVe
 auth.languageCode = auth.useDeviceLanguage();
 
 const LoginScreen = () => {
-
   // useState hooks for text input
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
