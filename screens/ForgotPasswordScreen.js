@@ -38,24 +38,23 @@ const ForgotPasswordScreen = () => {
         />
 
       </View>
-
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          onPress={handleForgotPassword}
-          style={styles.button}
-        >
-          <Text style={styles.buttonText}>Reset password</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-            onPress={handleGoBack}
-            style={styles.buttonGoBack}
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            onPress={handleForgotPassword}
+            style={styles.button}
           >
-            <Text style={styles.buttonOutlineText}>Go Back to login</Text>
-        </TouchableOpacity>
+            <Text style={styles.buttonText}>Reset password</Text>
+          </TouchableOpacity>
 
+          <TouchableOpacity
+              onPress={handleGoBack}
+              style={styles.buttonGoBack}
+            >
+              <Text style={styles.buttonOutlineText}>Go Back to login</Text>
+          </TouchableOpacity>
+
+        </View>
       </View>
-    </View>
   )
 }
 

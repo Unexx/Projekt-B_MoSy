@@ -3,14 +3,13 @@ import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { auth, db } from '../firebase/firebase-config'
 import { signOut } from 'firebase/auth'
-import { collection, getDoc, setDoc, addDoc, doc } from "firebase/firestore"; 
+import { setDoc, doc } from "firebase/firestore"; 
 
 const user = auth.currentUser;
 const HomeScreen = () => {
   const navigation = useNavigation()
 
   const handleSignOut = () => {
-    // const auth = getAuth();
     signOut(auth)
     .then(() => {
       navigation.replace("Login")
@@ -19,9 +18,7 @@ const HomeScreen = () => {
   }
 
   const addDataToCollection = async () => {
-    await setDoc(doc(db, "users", user.uid.toString()), {
-      uid: user.uid,
-      user_email: user.email,
+    await setDoc(doc(db, "users", user.email), {
       markers: {
         latitude: 4,
         longitude: 4
