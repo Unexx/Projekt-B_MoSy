@@ -18,10 +18,12 @@ const HomeScreen = () => {
   }
 
   const addDataToCollection = async () => {
-    await setDoc(doc(db, "users", user.email), {
+    await setDoc(doc(db, "markers", user.uid.toString()), {
       markers: {
-        latitude: 4,
-        longitude: 4
+        description: "lol",
+        latitude: 69,
+        longitude: 6.9420,
+        name: "Funny number location"
       }
     });
   }
