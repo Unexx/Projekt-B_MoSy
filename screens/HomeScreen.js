@@ -210,6 +210,7 @@ const HomeScreen = () => {
       >
         <Text style={styles.buttonText}>Sign out</Text>
       </TouchableOpacity>
+      
     </View>
   )
 }
