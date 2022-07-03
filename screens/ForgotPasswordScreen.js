@@ -64,10 +64,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: '#EDF2F4'
   },
    button: {
-    backgroundColor: '#0782F9',
+    backgroundColor: '#2B2D42',
     width: '60%',
     padding: 15,
     borderRadius: 10,
@@ -80,10 +81,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   buttonGoBack: {
-    marginTop: 5
+    marginTop: 20
   },
   buttonOutlineText: {
-    color: '#0782F9',
+    color: '#2B2D42',
     fontWeight: '700',
     fontSize: 16,
   },
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
     width: '80%'
   },
   buttonContainer: {
-    width: '60%',
+    width: '80%',
     justifyContent: 'center',
     alignItems: 'center',
   },
