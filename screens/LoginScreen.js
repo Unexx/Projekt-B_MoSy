@@ -101,15 +101,19 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#EDF2F4',
   },
   inputContainer: {
     width: '80%'
   },
   input: {
-    backgroundColor: 'white',
+    backgroundColor: '#ffffff',
+    // placeholderTextColor: "#2B2D4290",
+    color: '#2B2D42',
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderRadius: 10,
+    borderColor: '#D90429',
     marginTop: 5,
   },
   buttonContainer: {
@@ -119,7 +123,8 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   button: {
-    backgroundColor: '#0782F9',
+    backgroundColor: '#2B2D42',
+    color: '#EDF2F4',
     width: '100%',
     padding: 15,
     borderRadius: 10,
@@ -127,21 +132,21 @@ const styles = StyleSheet.create({
   },
   buttonOutline: {
     backgroundColor: 'white',
-    marginTop: 5,
-    borderColor: '#0782F9',
+    marginTop: 20,
+    borderColor: '#2B2D42',
     borderWidth: 2,
   },
   buttonText: {
-    color: 'white',
+    color: '#EDF2F4',
     fontWeight: '700',
     fontSize: 16,
   },
   buttonOutlineText: {
-    color: '#0782F9',
+    color: '#2B2D42',
     fontWeight: '700',
     fontSize: 16,
   },
   buttonForgotPassword: {
-    marginTop: 5
+    marginTop: 20
   }
 })

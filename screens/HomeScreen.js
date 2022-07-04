@@ -58,7 +58,8 @@ const HomeScreen = () => {
 
   // MARKER zur DB hinzufügen
   const addMarkerToDB = async() => {
-    await setDoc(doc(db, "markers", user.email.toString() ), {
+    let userID = auth.currentUser.uid.toString()
+    await setDoc(doc(db, "markers", userID ), {
       markers: {
         name: eventNameInput,
         description: eventDescInput,
@@ -67,9 +68,8 @@ const HomeScreen = () => {
       }
     });
     const alerta_title = "Marker has been Set"
-    const alerta_msg = "Latitude: " + userMarkerLatitude.toString() + "\nLongitude" + userMarkerLongitude.toString() 
+    const alerta_msg = "Latitude: " + userMarkerLatitude.toString() + "\nLongitude" + userMarkerLongitude.toString()
     Alert.alert(alerta_title,alerta_msg);
-
     setRegion(userMarker);
   }
 
@@ -210,6 +210,7 @@ const HomeScreen = () => {
       >
         <Text style={styles.buttonText}>Sign out</Text>
       </TouchableOpacity>
+      
     </View>
   )
 }
@@ -223,7 +224,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
    button: {
-    backgroundColor: '#0782F9',
+    backgroundColor: '#2B2D4295',
     width: '60%',
     padding: 15,
     borderRadius: 10,
@@ -251,6 +252,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },  
   input: {
+    backgroundColor: '#fff',
     height: 40,
     margin: 1,
     borderWidth: 1,
