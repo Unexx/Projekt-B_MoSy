@@ -197,22 +197,19 @@ const HomeScreen = () => {
       {/* MARKER ERSTELLEN */}
       <TextInput style={styles.input} placeholder='EVENT NAME' value={eventNameInput} onChangeText={onChangeEventInput}></TextInput>
       <TextInput style={styles.input} placeholder='DESCRIPTION' value={eventDescInput} onChangeText={onChangeDescInput}></TextInput>
-      <View style={styles.container}>
-        <TouchableOpacity
-          onPress={addMarkerToDB}
-          style={styles.button}
-        >
-          <Text style={styles.buttonText}>Marker erstellen</Text>
-        </TouchableOpacity>
+      <TouchableOpacity
+        onPress={addMarkerToDB}
+        style={styles.button}
+      >
+        <Text style={styles.buttonText}>CREATE MARKER</Text>
+      </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={handleSignOut}
-          style={styles.buttonAbmelden}
-        >
-          <Text style={styles.buttonText}>Abmelden</Text>
-        </TouchableOpacity>
-      </View>
-      
+      <TouchableOpacity
+        onPress={handleSignOut}
+        style={styles.button}
+      >
+        <Text style={styles.buttonText}>Sign out</Text>
+      </TouchableOpacity>
       
     </View>
   )
@@ -227,26 +224,12 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
    button: {
-    flex: 1,
-    flexDirection: 'row',
     backgroundColor: '#2B2D4295',
     width: '60%',
     padding: 15,
     borderRadius: 10,
     alignItems: 'center',
     marginTop: 40,
-    marginBottom: 15
-  },
-  buttonAbmelden: {
-    flex: 1,
-    flexDirection: 'row',
-    backgroundColor: '#2B2D4295',
-    width: '60%',
-    padding: 15,
-    borderRadius: 10,
-    alignItems: 'center',
-    marginTop: 40,
-    marginBottom: 15
   },
   buttonText: {
     color: 'white',
